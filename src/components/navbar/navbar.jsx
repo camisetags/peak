@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 
 export default function Navbar (props) {
+  let loginButtonState = props.loginState ? <LoginDropdown /> : <LoginButton />;
+
   return(
     <div className="navbar">
       <div className="content">
@@ -20,18 +22,28 @@ export default function Navbar (props) {
             <li className="pure-menu-item"><Link to='/networks' className="pure-menu-link">Networks</Link></li>
             <li className="pure-menu-item"><a href="#" className="pure-menu-link">Nodes</a></li>
             <li className="pure-menu-item"><a href="#" className="pure-menu-link">Volumes</a></li>
-            <li className="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-              <a href="#"  className="pure-menu-link"> <img className="" width="40px" height="40px"/> </a>
-              <ul className="pure-menu-children">
-                <li className="pure-menu-item"><a href="#" className="pure-menu-link">Account</a></li>
-                <li className="pure-menu-item"><a href="#" className="clickable pure-menu-link" >Logout</a></li>
-              </ul>
-            </li>
-             {/* If note logged show it */}
-             <li className="pure-menu-item"><Link to='/users/login' activeClassName='active'  className="pure-menu-link"> Login</Link></li>
+            {loginButtonState}
           </ul>
         </div>
       </div>
     </div>
+  );
+}
+
+function LoginDropdown(props) {
+  return (
+    <li className="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+      <a href="#"  className="pure-menu-link"> <img className="" width="40px" height="40px"/> </a>
+      <ul className="pure-menu-children">
+        <li className="pure-menu-item"><a href="#" className="pure-menu-link">Account</a></li>
+        <li className="pure-menu-item"><a href="#" className="clickable pure-menu-link" >Logout</a></li>
+      </ul>
+    </li>
+  );
+}
+
+function LoginButton(props) {
+  return (
+    <li className="pure-menu-item"><Link to='/users/login' activeClassName='active'  className="pure-menu-link"> Login</Link></li>
   );
 }
